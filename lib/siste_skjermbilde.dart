@@ -97,10 +97,49 @@ class SisteSkjermBilde extends StatelessWidget {
                             child: Text ('Ferdig',
                                 style: TextStyle(fontSize: 20)),
                             onPressed: (){
-                              Navigator.push(context, MaterialPageRoute(
-                                  builder: (context)=> MyHomePage(camera,nyArt,location, )));
+                             // Future <void> _showNotes(){
+                                showDialog(
+                                    context:context,
+                                    builder:(BuildContext context){
+
+                                      return AlertDialog(
+                                        title: Text('Notar registrert'),
+                                        content: SingleChildScrollView(
+                                          child: ListBody(
+                                            children: <Widget>[
+                                              Text('Dato og tidspunkt: '+this.nyArt.getDatoTidspunkt()),
+                                              Text('GPS: ' +this.nyArt.breddegrad.toString()+' & '+this.nyArt.lengdegrad.toString()),
+                                              Text(' Navn på art :  '+this.nyArt.getName()),
+                                              Text(' Funn sted :  '+this.nyArt.getfunnSted()),
+                                            ],
+                                          ),
+                                        ),
+
+                                        actions: <Widget>[
+                                          FlatButton(
+                                            child: Text('Lagre'),
+                                            onPressed: (){
+                                              Navigator.push(context, MaterialPageRoute(
+                                                    builder: (context)=> MyHomePage(camera,nyArt,location, )));
+                                            },
+                                          )
+                                        ],
+
+                                      );
+
+
+                                    }
+
+
+                                );
+
+
+                            //  }
+                             // Navigator.push(context, MaterialPageRoute(
+                               //   builder: (context)=> MyHomePage(camera,nyArt,location, )));
                             },
                           ),
+
                         ),
 
                       )
@@ -112,8 +151,29 @@ class SisteSkjermBilde extends StatelessWidget {
             ),
           )
         ],
+
       ),
 
+
     );
+
+   Future <void> _showNotes(){
+      showDialog(
+        context:context,
+        builder:(BuildContext context){
+
+          return AlertDialog(
+            title: Text('Notar registrert'),
+          );
+
+
+        }
+
+
+      );
+
+
+    }
+
   }
 }

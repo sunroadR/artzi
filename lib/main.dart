@@ -262,7 +262,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
                   children: <Widget>[
                     Container(
-                      color: Colors.lightGreen[300],
+                      color: Colors.lightGreen[100],
 
                       height: (MediaQuery.of(context).size.height-appBar.preferredSize.height)/2,
                       // width: MediaQuery.of(context).size.width/2,
