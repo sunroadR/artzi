@@ -2,6 +2,8 @@ import 'dart:async';
 
 import 'package:artzi/art.dart';
 import 'package:artzi/registrering_skjema.dart';
+import 'package:artzi/read_write_file.dart';
+
 import 'package:camera/camera.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -287,8 +289,11 @@ class _MyHomePageState extends State<MyHomePage> {
                             child: Text ('Se tidligere registrete arter',
                                 style: TextStyle(fontSize: 20)),
 // Within the `FirstRoute` widget
-                            onPressed: () {
+                            onPressed: () async{
+                              ReadWriteFile lese = new ReadWriteFile();
+                              var navnArt;
 
+                              navnArt = await lese.read();
 
                               Navigator.push(context,
                                   MaterialPageRoute(builder: (context) => Container(
@@ -297,7 +302,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                     child: AlertDialog(
 
                                       backgroundColor: Colors.lightGreen[300],
-                                      title: Text('Ingen arter registert'),
+                                      title: Text('Navn på art registrert art :  '+navnArt.toString()),
                                     ),
                                   ),
                                   )

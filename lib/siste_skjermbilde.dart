@@ -3,6 +3,8 @@ import 'dart:ui';
 import 'package:artzi/art.dart';
 import 'package:artzi/main.dart';
 import 'package:artzi/take_picture_screen.dart';
+import 'package:artzi/read_write_file.dart';
+
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:location/location.dart';
@@ -119,6 +121,8 @@ class SisteSkjermBilde extends StatelessWidget {
                                           FlatButton(
                                             child: Text('Lagre'),
                                             onPressed: (){
+                                              ReadWriteFile skrive = new ReadWriteFile();
+                                              skrive.writeInfo(nyArt.getName());
                                               Navigator.push(context, MaterialPageRoute(
                                                     builder: (context)=> MyHomePage(camera,nyArt,location, )));
                                             },
