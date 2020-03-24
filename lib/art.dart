@@ -16,8 +16,11 @@ class Art {
   String getName() => name;
   // String getAntall() => antall;
   String getfunnSted() => funnSted;
-  String komentar() => kommentar;
+  String getKommentar() => kommentar;
   String getDatoTidspunkt() => DatoTidspunkt;
+  
+  String getLengdegrad() => lengdegrad.toString();
+  String getBreddegrad() => breddegrad.toString();
 
 
   void setName(String oppgittNavn){

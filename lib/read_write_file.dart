@@ -5,7 +5,17 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
 
+import 'package:artzi/art.dart';
+
 class ReadWriteFile{
+  
+  void skrivNotatOmArt(Art nyArt)async{
+    String info;
+    info=await''+nyArt.getDatoTidspunkt()+'§'+nyArt.getLengdegrad()+'§'+nyArt.getBreddegrad()+'§'+nyArt.getName()+'§'+nyArt.getfunnSted()+'§'+nyArt.getKommentar()+'';
+
+    writeInfo(info);
+
+  }
 
   ///Path to the documents directory
   Future<String> get _localPath async {

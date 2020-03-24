@@ -295,18 +295,34 @@ class _MyHomePageState extends State<MyHomePage> {
 
                               navnArt = await lese.read();
 
+                              String datoTid = getTidDato(navnArt.toString());
+                              String lengdegrad= getLegdegrad(navnArt.toString());
+                              String breddegrad =getBreddegrad(navnArt.toString());
+                              String navn = getNavn(navnArt.toString());
+                              String funnsted = getFunnSted(navnArt.toString());
+                              String kommentar = getKommentar(navnArt.toString());
+
                               Navigator.push(context,
                                   MaterialPageRoute(builder: (context) => Container(
 
                                     color: Colors.lightGreen[100],
                                     child: AlertDialog(
 
+
+
+
+
+
                                       backgroundColor: Colors.lightGreen[300],
-                                      title: Text('Navn på art registrert art :  '+navnArt.toString()),
+                                    //  title: Text('Navn på art registrert art : \n '+navnArt.split('/').toString()+'\n'),
+                                      title: Text('Navn på art registrert art : \n Dato & tid : '+datoTid.toString()+'\n'
+                                          'Gps-kordinater : '+lengdegrad.toString()+' & '+breddegrad.toString()+'\n'
+                                           'Navn : '+navn.toString(),
+
                                     ),
                                   ),
                                   )
-                              );
+                              ));
 
                             },
                           ),
@@ -321,9 +337,36 @@ class _MyHomePageState extends State<MyHomePage> {
     ],
         ),
 
+
       // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
+
+  /// Metoder som  henter ut registret info om  registrerte arter
+String getTidDato(String info){
+    return info.split("§").elementAt(0);
+}
+
+String getLegdegrad(String info){
+    return info.split("§").elementAt(1);
+  }
+
+  String getBreddegrad(String info){
+    return info.split("§").elementAt(2);
+  }
+
+  String getNavn(String info){
+    return info.split("§").elementAt(3);
+  }
+
+  String getFunnSted(String info){
+    return info.split("§").elementAt(4);
+  }
+
+ String getKommentar(String info){
+   return info.split("§").elementAt(5);
+
+ }
 }
 
 
