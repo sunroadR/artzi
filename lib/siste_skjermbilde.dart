@@ -56,7 +56,7 @@ class SisteSkjermBilde extends StatelessWidget {
               child: Column(
                 children: <Widget>[
                   Container(
-                    height: 10,
+                    height: 50,
                   ),
                   Row(
                     children: <Widget>[
@@ -66,7 +66,7 @@ class SisteSkjermBilde extends StatelessWidget {
                       Expanded(
                           flex: 2,
                           child: Text(' Vil du ta bilde \n av '+this.nyArt.getName(),style: TextStyle(
-                            fontStyle: FontStyle.italic,fontSize: 18,
+                            fontStyle: FontStyle.italic,fontSize: 18,fontWeight: FontWeight.bold,
                           ),
                           )
 
@@ -74,7 +74,10 @@ class SisteSkjermBilde extends StatelessWidget {
                       Expanded(
                         flex: 2,
                         child: FloatingActionButton(
-                          child: Icon(Icons.camera_alt),
+                          backgroundColor: Colors.lightGreen[600],
+
+                          child: Icon(Icons.camera_alt,
+                          color: Colors.black),
                           onPressed: (){
                             Navigator.push(context, MaterialPageRoute(
                                 builder: (context)=> TakePictureScreen(  this.camera,  this.nyArt, )));
@@ -97,7 +100,7 @@ class SisteSkjermBilde extends StatelessWidget {
                             ),
                             color: Colors.lightGreen[600],
                             child: Text ('Ferdig',
-                                style: TextStyle(fontSize: 20)),
+                                style: TextStyle(fontSize: 20, )),
                             onPressed: (){
                              // Future <void> _showNotes(){
                                 showDialog(
@@ -112,7 +115,9 @@ class SisteSkjermBilde extends StatelessWidget {
                                               Text('Dato og tidspunkt: '+this.nyArt.getDatoTidspunkt()),
                                               Text('GPS: ' +this.nyArt.breddegrad.toString()+' & '+this.nyArt.lengdegrad.toString()),
                                               Text(' Navn på art :  '+this.nyArt.getName()),
+                                              Text(' Antll : '+this.nyArt.getAntall()),
                                               Text(' Funn sted :  '+this.nyArt.getfunnSted()),
+                                              Text(' Andre kommentarer :'+this.nyArt.getKommentar())
                                             ],
                                           ),
                                         ),
@@ -149,7 +154,7 @@ class SisteSkjermBilde extends StatelessWidget {
                       )
                     ],
                   )
-                ],
+               ],
               ),
 
             ),
@@ -161,7 +166,7 @@ class SisteSkjermBilde extends StatelessWidget {
 
     );
 
-   Future <void> _showNotes(){
+  /** Future <void> _showNotes(){
       showDialog(
         context:context,
         builder:(BuildContext context){
@@ -177,7 +182,7 @@ class SisteSkjermBilde extends StatelessWidget {
       );
 
 
-    }
+    }*/
 
   }
 }

@@ -2,10 +2,11 @@
 class Art {
 
   String name='';
-  // String antall;
+   String antall="";
   String funnSted='';
   String kommentar='';
   String DatoTidspunkt;
+
 
 
   double breddegrad;
@@ -14,7 +15,7 @@ class Art {
   Art(this.breddegrad,this.lengdegrad, this.DatoTidspunkt);
 
   String getName() => name;
-  // String getAntall() => antall;
+   String getAntall() => antall;
   String getfunnSted() => funnSted;
   String getKommentar() => kommentar;
   String getDatoTidspunkt() => DatoTidspunkt;
@@ -27,11 +28,11 @@ class Art {
     this.name=oppgittNavn;
   }
 
-  /**
+
       void setAntall(String oppgittAntall){
       this.antall=oppgittAntall;
 
-      }*/
+      }
 
   void setFunnSted(String oppgittFunnSted){
     this.funnSted=oppgittFunnSted;

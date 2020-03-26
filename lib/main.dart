@@ -50,7 +50,6 @@ Future<void> main() async{
 
 
   _locationData = await location.getLocation();
-  print('her er gps : ' + _locationData.toString());
   nyArt = new Art(_locationData.latitude,_locationData.longitude,
       ''+DateTime.now().toLocal().toString()+'');
 
@@ -103,7 +102,10 @@ class MyApp extends StatelessWidget {
 
             primaryColor: Colors.lightGreen,
             backgroundColor: Colors.lightGreen[100],
-            accentColorBrightness: Brightness.dark
+            accentColorBrightness: Brightness.dark,
+
+
+
         ),
         title: 'Flutter Demo',
 
@@ -261,50 +263,53 @@ class _MyHomePageState extends State<MyHomePage> {
                         style: TextStyle(fontSize: 20)),
 // Within the `FirstRoute` widget
                     onPressed: () async{
-                      ReadWriteFile lese = new ReadWriteFile();
-                      var navnArt;
+    ReadWriteFile lese = new ReadWriteFile();
+    var navnArt;
 
-                      navnArt = await lese.read();
+    navnArt = await lese.read();
 
-                      String datoTid = getTidDato(navnArt.toString());
-                      String lengdegrad= getLegdegrad(navnArt.toString());
-                      String breddegrad =getBreddegrad(navnArt.toString());
-                      String navn = getNavn(navnArt.toString());
-                      String funnsted = getFunnSted(navnArt.toString());
-                      String kommentar = getKommentar(navnArt.toString());
+    String datoTid = getTidDato(navnArt.toString());
+    String lengdegrad= getLegdegrad(navnArt.toString());
+    String breddegrad =getBreddegrad(navnArt.toString());
+    String navn = getNavn(navnArt.toString());
+    String funnsted = getFunnSted(navnArt.toString());
+    String kommentar = getKommentar(navnArt.toString());
 
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => Container(
-
-                            color: Colors.lightGreen[100],
-                            child: AlertDialog(
+    showDialog(context: context,
 
 
+    builder:(BuildContext context){
+    return AlertDialog(
 
 
+    title: Text('Navn på arter registrert'),
+    content: SingleChildScrollView(
+    child: ListBody(
+    children: <Widget>[
 
 
-                              backgroundColor: Colors.lightGreen[300],
-                              //  title: Text('Navn på art registrert art : \n '+navnArt.split('/').toString()+'\n'),
-                              title: Text('Navn på art registrert art : \n Dato & tid : '+datoTid.toString()+'\n'
-                                  'Gps-kordinater :\n '+lengdegrad.toString()+' & '+breddegrad.toString()+'\n'
-                                  'Navn : '+navn.toString()+'\n'
-                                  'Funnsted : '+funnsted.toString()+'\n'
-                                  'Kommentar : '+kommentar.toString()+'\n'
+    //  title: Text('Navn på art registrert art : \n '+navnArt.split('/').toString()+'\n'),
+    Text('Dato & tid : '+datoTid.toString()),
+    Text('Gps-kordinater :\n '+lengdegrad.toString()+' & '+breddegrad.toString()),
+    Text( 'Navn : '+navn.toString()),
+    Text(' Funnsted : '+funnsted.toString()),
+    Text( 'Kommentar : '+kommentar.toString()),
 
-                              ),
-                            ),
-                          )
-                          ));
-
-                    },
-                  ),
-                ),
-                // ),
-              ),
+    ],
+    ),
+    ),
+    );
 
 
+    },
 
+
+    );
+
+    }
+    ),
+    ),
+               ),
 
     ],
         ),

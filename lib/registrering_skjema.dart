@@ -76,36 +76,30 @@ class _RegistreringSkjemaState extends State<RegistreringSkjema>{
       ),
 
 
-      body: ListView(
-
-
-        children: <Widget>[
-          //  Flex(
-          //     children: <Widget>[
-          Form(
+      body: Form(
             child: Align(
                 alignment: Alignment.center,
                 child:  Container(
                   height: (MediaQuery.of(context).size.height),
 
-                  color: Colors.lightGreen[100],
+                 color: Theme.of(context).backgroundColor,
                   child:ListView(
-                    children: <Widget>[
+                   children: <Widget>[
 
-                      Column(
 
-                          children: <Widget>[
 
-                            Container(height: 25,),
-                            Row(
+                         //   Container(height: 25,),
+                           Row(
                               children: <Widget>[
+                                Container(
+                                  padding: EdgeInsets.only(top: 60),
+                                ),
                                 Container(
                                   padding: EdgeInsets.only(left: 24),
                                 ),
 
                                 Expanded(
                                   flex:2,
-                                  // padding: EdgeInsets.only(left: 20,top:45 ,right: 2),
 
                                   child: Text(' Dato  : '+this.widget.nyArt.getDatoTidspunkt(),
                                     maxLines: 1,
@@ -119,7 +113,6 @@ class _RegistreringSkjemaState extends State<RegistreringSkjema>{
                               ],
                             ),
 
-                            Container(height: 10,),
                             Row(
                               children: <Widget>[
                                 Container(
@@ -170,7 +163,6 @@ class _RegistreringSkjemaState extends State<RegistreringSkjema>{
                                 ),
 
                                 Expanded(
-                                  // padding: EdgeInsets.only(left: 20,top:45 ,right: 2),
 
                                   child:  Text(' Lengdegrad - grad : '+this.widget.nyArt.lengdegrad.toString()+'',
 
@@ -195,7 +187,7 @@ class _RegistreringSkjemaState extends State<RegistreringSkjema>{
 
                                 Expanded(
 
-                                  child: Text('Navn på art ',
+                                  child: Text('Navn :',
                                     maxLines: 1,
                                     style: TextStyle(
                                         fontStyle: FontStyle.italic,fontSize: 18
@@ -212,13 +204,24 @@ class _RegistreringSkjemaState extends State<RegistreringSkjema>{
                                       autofocus: true,
                                       textAlign: TextAlign.center,
                                       decoration: InputDecoration(
-                                        border: OutlineInputBorder(),
+
+                                        border: OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                            //style: BorderStyle.solid,
+                                            color: Colors.lightGreen,
+                                            width: 2,
+                                          ),
+                                          borderRadius: BorderRadius.circular(20.0)
+                                        ),
                                         hintText: 'Skriv inn navn på art',
+                                        
                                       ),
                                       textInputAction: TextInputAction.next,
+
                                       onSubmitted: (_)=>FocusScope.of(context).nextFocus(),
 
                                       onChanged:(text){
+
                                         this.widget.nyArt.setName(text);
 
 
@@ -236,7 +239,7 @@ class _RegistreringSkjemaState extends State<RegistreringSkjema>{
                               ],
                             ),
                                Container(height: 20,),
-                              /**  Row(
+                               Row(
 
                                 mainAxisAlignment: MainAxisAlignment.spaceAround,
 
@@ -246,7 +249,6 @@ class _RegistreringSkjemaState extends State<RegistreringSkjema>{
                                 ),
 
                                 Expanded(
-                                //padding: EdgeInsets.only(left: 20,top:45 ,right: 2),
 
                                 child: Text('Antall ',
                                 maxLines: 1,
@@ -267,13 +269,17 @@ class _RegistreringSkjemaState extends State<RegistreringSkjema>{
                                 autofocus: false,
                                 textAlign: TextAlign.center,
                                 decoration: InputDecoration(
-                                border: OutlineInputBorder(),
+                                border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(20.0)
+
+                                ),
                                 hintText: 'Skriv inn anttall'
                                 ),
                                 textInputAction: TextInputAction.next,
                                 onSubmitted: (_)=>FocusScope.of(context).nextFocus(),
                                 onChanged:(text){
-                                this.widget.nyArt.;
+                                  this.widget.nyArt.setAntall(text);
+
                                 },
                                 ),
                                 ),
@@ -285,7 +291,7 @@ class _RegistreringSkjemaState extends State<RegistreringSkjema>{
 
                                 ],
 
-                                ), */
+                                ),
 
                             Container(height: 20,),
 
@@ -312,7 +318,10 @@ class _RegistreringSkjemaState extends State<RegistreringSkjema>{
                                   child: TextField(
                                     textAlign: TextAlign.center,
                                     decoration: InputDecoration(
-                                        border: OutlineInputBorder(),
+                                        border: OutlineInputBorder(
+                                            borderRadius: BorderRadius.circular(20.0)
+
+                                        ),
                                         hintText: 'Skriv inn på funn sted'
                                     ),
 
@@ -332,24 +341,7 @@ class _RegistreringSkjemaState extends State<RegistreringSkjema>{
                             ),
                             Container(height: 20,),
 
-                            Row(
-                              children: <Widget>[
 
-                                Container(
-                                  padding: EdgeInsets.only(left: 24),
-                                ),
-
-                                Expanded(
-                                  // padding: EdgeInsets.only(left: 20,top:45 ,right: 2),
-
-                                  child: Text('Andre kommentarer ',
-                                    maxLines: 1,
-                                    style: TextStyle(
-                                      fontStyle: FontStyle.italic,fontSize: 18,
-                                    ), textAlign: TextAlign.left,
-                                  ),
-                                ),
-                              ],),
                             Row(
                               children: <Widget>[
 
@@ -364,8 +356,11 @@ class _RegistreringSkjemaState extends State<RegistreringSkjema>{
                                     maxLines: null,
                                     keyboardType: TextInputType.multiline,
                                     decoration: InputDecoration(
-                                        border: OutlineInputBorder(),
-                                        hintText: 'skriv inn eventuelle\n kommentarer'
+                                        border: OutlineInputBorder(
+                                            borderRadius: BorderRadius.circular(20.0)
+
+                                        ),
+                                        hintText: 'Eventuelle andre\n kommentarer'
                                     ),
 
                                     textInputAction: TextInputAction.next,
@@ -420,20 +415,16 @@ class _RegistreringSkjemaState extends State<RegistreringSkjema>{
 
 
                                   ///  ),
-                                ])
+                                ]
+                            )
 
-                          ]),
-                    ],
+         ],
                   ),
 
                 )
             ),
 
           ),
-          //],
-          // ),
-        ],
-      ),
 
     );
   }
