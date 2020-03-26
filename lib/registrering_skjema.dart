@@ -57,8 +57,11 @@ class _RegistreringSkjemaState extends State<RegistreringSkjema>{
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       appBar: AppBar(
+            backgroundColor: Theme.of(context).primaryColor,
+
         title: RichText(
           text:  TextSpan(
 
@@ -232,8 +235,8 @@ class _RegistreringSkjemaState extends State<RegistreringSkjema>{
 
                               ],
                             ),
-                            /**     Container(height: 20,),
-                                Row(
+                               Container(height: 20,),
+                              /**  Row(
 
                                 mainAxisAlignment: MainAxisAlignment.spaceAround,
 
@@ -270,7 +273,7 @@ class _RegistreringSkjemaState extends State<RegistreringSkjema>{
                                 textInputAction: TextInputAction.next,
                                 onSubmitted: (_)=>FocusScope.of(context).nextFocus(),
                                 onChanged:(text){
-                                this.widget.nyArt.setAntall(text);
+                                this.widget.nyArt.;
                                 },
                                 ),
                                 ),
@@ -282,7 +285,7 @@ class _RegistreringSkjemaState extends State<RegistreringSkjema>{
 
                                 ],
 
-                                ),*/
+                                ), */
 
                             Container(height: 20,),
 

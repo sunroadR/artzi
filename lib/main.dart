@@ -58,6 +58,16 @@ Future<void> main() async{
 
   runApp(
       MaterialApp(
+
+        theme: ThemeData(
+
+
+            primaryColor: Colors.lightGreen,
+            backgroundColor: Colors.lightGreen[100],
+            accentColorBrightness: Brightness.dark
+        ),
+
+
         home: MyApp(
           camera: firstCamera,
           nyArt: nyArt,
@@ -88,19 +98,15 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        title: 'Flutter Demo',
-        theme: ThemeData(
-          // This is the theme of your application.
-          //
-          // Try running your application with "flutter run". You'll see the
-          // application has a blue toolbar. Then, without quitting the app, try
-          // changing the primarySwatch below to Colors.green and then invoke
-          // "hot reload" (press "r" in the console where you ran "flutter run",
-          // or simply save your changes to "hot reload" in a Flutter IDE).
-          // Notice that the counter didn't reset back to zero; the application
-          // is not restarted.
-          primarySwatch: Colors.lightGreen,
+       theme: ThemeData(
+
+
+            primaryColor: Colors.lightGreen,
+            backgroundColor: Colors.lightGreen[100],
+            accentColorBrightness: Brightness.dark
         ),
+        title: 'Flutter Demo',
+
         home: MyHomePage(
 
             camera,
@@ -143,15 +149,12 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    var appBar =AppBar();
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
+   // var appBar =AppBar(
+    //);
+
     return Scaffold(
         appBar: AppBar(
+          backgroundColor: Theme.of(context).primaryColor,
           // Here we take the value from the MyHomePage object that was created by
           // the App.build method, and use it to set our appbar title.
           title: RichText(
@@ -175,25 +178,16 @@ class _MyHomePageState extends State<MyHomePage> {
           children: <Widget>[
 
 
-                  Container(
-                   color: Colors.lightGreen[100],
-                     child: Row(
+                  //Container(
+
+
+                     Row(
                 children: <Widget>[
 
-                       Expanded(
-                          child: Column(
-                             mainAxisSize: MainAxisSize.min,
 
-                        children: <Widget>[
                           Container(
-                            color: Colors.lightGreen[100],
-
-                            height: (MediaQuery.of(context).size.height-appBar.preferredSize.height)/2,
-                            // width: MediaQuery.of(context).size.width/2,
-
-
-                            child: Container(
-                              height: 50.0,
+                            height: MediaQuery.of(context).size.height/2,
+                            color: Theme.of(context).backgroundColor,
 
                               width: MediaQuery.of(context).size.width,
                               //     child:Padding(
@@ -226,9 +220,6 @@ class _MyHomePageState extends State<MyHomePage> {
                                     print('Tid på dagen: '+tidsPkt.toString());
 
 
-                                    //            Navigator.push(context, MaterialPageRoute(
-                                    //              builder: (context)=> TakePictureScreen(  this.widget.camera,  this.widget.nyArt, )));
-
                                     Navigator.push(context,
                                         MaterialPageRoute(builder: (context) => RegistreringSkjema(this.widget.nyArt,this.widget.camera,this.widget.location)));
 
@@ -243,97 +234,78 @@ class _MyHomePageState extends State<MyHomePage> {
                             ),
 
 
-                          ),
-                        ]
-                    ),
-                  )                 ],
+
+
+      ],
 
 
 
               ),
-            ),
 
 
+               Container(
+                 height: MediaQuery.of(context).size.height/2,
+                 color: Theme.of(context).backgroundColor,
 
 
+                child: Align(
+                  alignment: Alignment.center,
 
+                  child: RaisedButton(
 
-
-               Column(
-                  mainAxisSize: MainAxisSize.min,
-
-                  children: <Widget>[
-                    Container(
-                      color: Colors.lightGreen[100],
-
-                      height: (MediaQuery.of(context).size.height-appBar.preferredSize.height)/2,
-                      // width: MediaQuery.of(context).size.width/2,
-
-
-                      child: Container(
-                        height: 100.0,
-
-
-                        // width: MediaQuery.of(context).size.width,
-                        //  child:Padding(
-                        //   padding: EdgeInsets.only(right:25, bottom: 150),
-                        child: Align(
-                          alignment: Alignment.center,
-
-                          child: RaisedButton(
-
-                            shape: new RoundedRectangleBorder(
-                              borderRadius: new BorderRadius.circular(30.0),
-                            ),
-                            color: Colors.lightGreen[300],
-                            child: Text ('Se tidligere registrete arter',
-                                style: TextStyle(fontSize: 20)),
+                    shape: new RoundedRectangleBorder(
+                      borderRadius: new BorderRadius.circular(30.0),
+                    ),
+                    color: Colors.lightGreen[300],
+                    child: Text ('Se tidligere registrete arter',
+                        style: TextStyle(fontSize: 20)),
 // Within the `FirstRoute` widget
-                            onPressed: () async{
-                              ReadWriteFile lese = new ReadWriteFile();
-                              var navnArt;
+                    onPressed: () async{
+                      ReadWriteFile lese = new ReadWriteFile();
+                      var navnArt;
 
-                              navnArt = await lese.read();
+                      navnArt = await lese.read();
 
-                              String datoTid = getTidDato(navnArt.toString());
-                              String lengdegrad= getLegdegrad(navnArt.toString());
-                              String breddegrad =getBreddegrad(navnArt.toString());
-                              String navn = getNavn(navnArt.toString());
-                              String funnsted = getFunnSted(navnArt.toString());
-                              String kommentar = getKommentar(navnArt.toString());
+                      String datoTid = getTidDato(navnArt.toString());
+                      String lengdegrad= getLegdegrad(navnArt.toString());
+                      String breddegrad =getBreddegrad(navnArt.toString());
+                      String navn = getNavn(navnArt.toString());
+                      String funnsted = getFunnSted(navnArt.toString());
+                      String kommentar = getKommentar(navnArt.toString());
 
-                              Navigator.push(context,
-                                  MaterialPageRoute(builder: (context) => Container(
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => Container(
 
-                                    color: Colors.lightGreen[100],
-                                    child: AlertDialog(
-
-
+                            color: Colors.lightGreen[100],
+                            child: AlertDialog(
 
 
 
 
-                                      backgroundColor: Colors.lightGreen[300],
-                                    //  title: Text('Navn på art registrert art : \n '+navnArt.split('/').toString()+'\n'),
-                                      title: Text('Navn på art registrert art : \n Dato & tid : '+datoTid.toString()+'\n'
-                                          'Gps-kordinater : '+lengdegrad.toString()+' & '+breddegrad.toString()+'\n'
-                                           'Navn : '+navn.toString(),
-
-                                    ),
-                                  ),
-                                  )
-                              ));
-
-                            },
-                          ),
-                        ),
-                        // ),
-                      ),
 
 
-                    ),
-                  ]
+                              backgroundColor: Colors.lightGreen[300],
+                              //  title: Text('Navn på art registrert art : \n '+navnArt.split('/').toString()+'\n'),
+                              title: Text('Navn på art registrert art : \n Dato & tid : '+datoTid.toString()+'\n'
+                                  'Gps-kordinater :\n '+lengdegrad.toString()+' & '+breddegrad.toString()+'\n'
+                                  'Navn : '+navn.toString()+'\n'
+                                  'Funnsted : '+funnsted.toString()+'\n'
+                                  'Kommentar : '+kommentar.toString()+'\n'
+
+                              ),
+                            ),
+                          )
+                          ));
+
+                    },
+                  ),
+                ),
+                // ),
               ),
+
+
+
+
     ],
         ),
 
