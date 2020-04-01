@@ -128,6 +128,7 @@ class SisteSkjermBilde extends StatelessWidget {
                                             onPressed: (){
                                               ReadWriteFile skrive = new ReadWriteFile();
                                               skrive.skrivNotatOmArt(nyArt);
+                                              skrive.dele();
                                               Navigator.push(context, MaterialPageRoute(
                                                     builder: (context)=> MyHomePage(camera,nyArt,location, )));
                                             },
