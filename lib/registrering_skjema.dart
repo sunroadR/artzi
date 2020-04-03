@@ -7,9 +7,11 @@ import 'package:camera/camera.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:location/location.dart';
+import 'package:artzi/main.dart';
 
 
 class  RegistreringSkjema extends StatefulWidget{
+
 
 
 
@@ -30,10 +32,13 @@ class  RegistreringSkjema extends StatefulWidget{
 
 class _RegistreringSkjemaState extends State<RegistreringSkjema>{
 
+
   String name;
   String anttall;
   String sted;
   String kommentar;
+
+
 
   @override
   void initState(){
@@ -57,6 +62,7 @@ class _RegistreringSkjemaState extends State<RegistreringSkjema>{
 
   @override
   Widget build(BuildContext context) {
+
 
     return Scaffold(
       appBar: AppBar(

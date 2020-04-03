@@ -9,7 +9,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:location/location.dart';
 import 'package:date_format/date_format.dart';
-import 'package:intl/intl.dart';
+
 
 
 Future<void> main() async{
@@ -102,6 +102,7 @@ class MyApp extends StatelessWidget {
 
             primaryColor: Colors.lightGreen,
             backgroundColor: Colors.lightGreen[100],
+            accentColor: Colors.lightGreen[700],
             accentColorBrightness: Brightness.dark,
 
 
@@ -149,10 +150,27 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
 
+
+  bool _load = false;
+  Timer _timer;
+
+  void setLoad(){
+    _load=false;
+  }
+
   @override
   Widget build(BuildContext context) {
-   // var appBar =AppBar(
-    //);
+
+    Widget loadingIndicator = _load? new Container(
+      color: Theme.of(context).backgroundColor,
+      width: MediaQuery.of(context).size.width,
+      height: MediaQuery.of(context).size.height,
+      child: new Center(
+        child: new CircularProgressIndicator(
+        )
+      ),
+
+    ):new Container();
 
     return Scaffold(
         appBar: AppBar(
@@ -187,6 +205,8 @@ class _MyHomePageState extends State<MyHomePage> {
                 children: <Widget>[
 
 
+
+
                           Container(
                             height: MediaQuery.of(context).size.height/2,
                             color: Theme.of(context).backgroundColor,
@@ -197,7 +217,9 @@ class _MyHomePageState extends State<MyHomePage> {
                               child: Align(
                                 alignment: Alignment.center,
 
-                                child: RaisedButton(
+                              child:  _load ? Center(
+                                         child: CircularProgressIndicator(),
+                              ): new RaisedButton(
 
                                   shape: new RoundedRectangleBorder(
                                     borderRadius: new BorderRadius.circular(30.0),
@@ -205,12 +227,15 @@ class _MyHomePageState extends State<MyHomePage> {
                                   color: Colors.lightGreen[300],
                                   child: Text ('Starte NY registrering',
                                       style: TextStyle(fontSize: 20)),
+
 // Within the `FirstRoute` widget
                                   onPressed: () async {
+                                    setState(() {
+                                      _load =true;
+                                    });
 
                                     String tidsPkt= formatDate(DateTime.now(), [dd,'.',mm,'.',yyyy, '  ',HH,':',nn]);
 
-                                    print('Tid på dagen: '+tidsPkt.toString());
 
 
                                     this.widget._locationData= await this.widget.location.getLocation();
@@ -218,19 +243,22 @@ class _MyHomePageState extends State<MyHomePage> {
                                         tidsPkt);
 
 
-
-                                    print('Tid på dagen: '+tidsPkt.toString());
-
-
-                                    Navigator.push(context,
-                                        MaterialPageRoute(builder: (context) => RegistreringSkjema(this.widget.nyArt,this.widget.camera,this.widget.location)));
-
-                                    // Navigator.push(context,
+                           Navigator.push(context,
+                                    MaterialPageRoute(builder: (context) => RegistreringSkjema(
+                                        this.widget.nyArt,this.widget.camera,this.widget.location)));
 
 
+
+                             setState(() {
+                                      _timer = new Timer(const Duration(
+                                          microseconds: 400), () {
+                                        _load = false;
+                                      });
+                                    });
 
                                   },
-                                ),
+
+                              )
                               ),
                               // ),
                             ),
@@ -261,52 +289,74 @@ class _MyHomePageState extends State<MyHomePage> {
                     color: Colors.lightGreen[300],
                     child: Text ('Se tidligere registrete arter',
                         style: TextStyle(fontSize: 20)),
-// Within the `FirstRoute` widget
-                    onPressed: () async{
-    ReadWriteFile lese = new ReadWriteFile();
-    var navnArt;
+                            // Within the `FirstRoute` widget
+                    onPressed: () async {
+                      ReadWriteFile lese = new ReadWriteFile();
+                      var navnArt;
 
-    navnArt = await lese.read();
+                      navnArt = await lese.read();
 
-    String datoTid = getTidDato(navnArt.toString());
-    String lengdegrad= getLegdegrad(navnArt.toString());
-    String breddegrad =getBreddegrad(navnArt.toString());
-    String navn = getNavn(navnArt.toString());
-    String funnsted = getFunnSted(navnArt.toString());
-    String kommentar = getKommentar(navnArt.toString());
-
-    showDialog(context: context,
+                          print('navnArt sin lengde '+navnArt.length.toString());
+                      if (getNavn(navnArt.toString()).length== 0) {
+                        showDialog(context: context,
 
 
-    builder:(BuildContext context){
-    return AlertDialog(
+                            builder: (BuildContext context) {
+                              return AlertDialog(
 
 
-    title: Text('Navn på arter registrert'),
-    content: SingleChildScrollView(
-    child: ListBody(
-    children: <Widget>[
+                                title: Text('Navn på arter registrert'),
+                                content: SingleChildScrollView(
+                                  child: ListBody(
+                                      children: <Widget>[
+                                        Text('Inegn notater registret'),
+                                      ]
+                                  ),
+                                ),
+                              );
+                            }
+                        );
+                      }
+                      else {
+                        String datoTid = getTidDato(navnArt.toString());
+                        String lengdegrad = getLegdegrad(navnArt.toString());
+                        String breddegrad = getBreddegrad(navnArt.toString());
+                        String navn = getNavn(navnArt.toString());
+                        String funnsted = getFunnSted(navnArt.toString());
+                        String kommentar = getKommentar(navnArt.toString());
+
+                        showDialog(context: context,
 
 
-    //  title: Text('Navn på art registrert art : \n '+navnArt.split('/').toString()+'\n'),
-    Text('Dato & tid : '+datoTid.toString()),
-    Text('Gps-kordinater :\n '+lengdegrad.toString()+' & '+breddegrad.toString()),
-    Text( 'Navn : '+navn.toString()),
-    Text(' Funnsted : '+funnsted.toString()),
-    Text( 'Kommentar : '+kommentar.toString()),
-
-    ],
-    ),
-    ),
-    );
+                          builder: (BuildContext context) {
+                            return AlertDialog(
 
 
-    },
+                              title: Text('Navn på arter registrert'),
+                              content: SingleChildScrollView(
+                                child: ListBody(
+                                  children: <Widget>[
 
 
-    );
+                                    //  title: Text('Navn på art registrert art : \n '+navnArt.split('/').toString()+'\n'),
+                                    Text('Dato & tid : ' + datoTid.toString()),
+                                    Text('Gps-kordinater :\n ' +
+                                        lengdegrad.toString() + ' & ' +
+                                        breddegrad.toString()),
+                                    Text('Navn : ' + navn.toString()),
+                                    Text(' Funnsted : ' + funnsted.toString()),
+                                    Text('Kommentar : ' + kommentar.toString()),
 
-    }
+                                  ],
+                                ),
+                              ),
+                            );
+                          },
+
+
+                        );
+                      }
+                    }
     ),
     ),
                ),
