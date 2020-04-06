@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io' as io;
 
 import 'package:artzi/art.dart';
 import 'package:artzi/registrering_skjema.dart';
@@ -50,8 +51,7 @@ Future<void> main() async{
 
 
   _locationData = await location.getLocation();
-  nyArt = new Art(_locationData.latitude,_locationData.longitude,
-      ''+DateTime.now().toLocal().toString()+'');
+  nyArt = new Art(_locationData.latitude,_locationData.longitude);
 
 
 
@@ -63,6 +63,7 @@ Future<void> main() async{
 
             primaryColor: Colors.lightGreen,
             backgroundColor: Colors.lightGreen[100],
+            accentColor: Colors.lightGreen[700],
             accentColorBrightness: Brightness.dark
         ),
 
@@ -160,6 +161,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    print(' Hva er lengde graden ?? '+this.widget.nyArt.breddegrad.toString() );
 
     Widget loadingIndicator = _load? new Container(
       color: Theme.of(context).backgroundColor,
@@ -239,8 +241,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
 
                                     this.widget._locationData= await this.widget.location.getLocation();
-                                    this.widget.nyArt = new Art(this.widget._locationData.latitude,this.widget._locationData.longitude,
-                                        tidsPkt);
+                                    this.widget.nyArt = new Art(this.widget._locationData.latitude,this.widget._locationData.longitude);
 
 
                            Navigator.push(context,
@@ -291,74 +292,73 @@ class _MyHomePageState extends State<MyHomePage> {
                         style: TextStyle(fontSize: 20)),
                             // Within the `FirstRoute` widget
                     onPressed: () async {
-                      ReadWriteFile lese = new ReadWriteFile();
-                      var navnArt;
-
-                      navnArt = await lese.read();
-
-                          print('navnArt sin lengde '+navnArt.length.toString());
-                      if (getNavn(navnArt.toString()).length== 0) {
-                        showDialog(context: context,
+    ReadWriteFile lese = new ReadWriteFile();
+    var navnArt = await lese.read();
 
 
-                            builder: (BuildContext context) {
-                              return AlertDialog(
+    print(' er jeg her inne .... ???'+navnArt.length.toString());
 
 
-                                title: Text('Navn på arter registrert'),
-                                content: SingleChildScrollView(
-                                  child: ListBody(
-                                      children: <Widget>[
-                                        Text('Inegn notater registret'),
-                                      ]
-                                  ),
-                                ),
-                              );
-                            }
-                        );
-                      }
-                      else {
-                        String datoTid = getTidDato(navnArt.toString());
-                        String lengdegrad = getLegdegrad(navnArt.toString());
-                        String breddegrad = getBreddegrad(navnArt.toString());
-                        String navn = getNavn(navnArt.toString());
-                        String funnsted = getFunnSted(navnArt.toString());
-                        String kommentar = getKommentar(navnArt.toString());
-
-                        showDialog(context: context,
+    if(getTidDato(navnArt.toString())==''){
+      
+      print('Er jeg her ??? NÅ?');
+    showDialog(context: context,
 
 
-                          builder: (BuildContext context) {
-                            return AlertDialog(
+    builder: (BuildContext context) {
+    return AlertDialog(
 
 
-                              title: Text('Navn på arter registrert'),
-                              content: SingleChildScrollView(
-                                child: ListBody(
-                                  children: <Widget>[
+    title: Text('Ingen notater registrert'),
+   
+    );
+    }
+    );
+    }
+    else{
+    String datoTid = getTidDato(navnArt.toString());
+    String lengdegrad = getLegdegrad(navnArt.toString());
+    String breddegrad = getBreddegrad(navnArt.toString());
+    String navn = getNavn(navnArt.toString());
+    String funnsted = getFunnSted(navnArt.toString());
+    String kommentar = getKommentar(navnArt.toString());
+
+    showDialog(context: context,
 
 
-                                    //  title: Text('Navn på art registrert art : \n '+navnArt.split('/').toString()+'\n'),
-                                    Text('Dato & tid : ' + datoTid.toString()),
-                                    Text('Gps-kordinater :\n ' +
-                                        lengdegrad.toString() + ' & ' +
-                                        breddegrad.toString()),
-                                    Text('Navn : ' + navn.toString()),
-                                    Text(' Funnsted : ' + funnsted.toString()),
-                                    Text('Kommentar : ' + kommentar.toString()),
-
-                                  ],
-                                ),
-                              ),
-                            );
-                          },
+    builder: (BuildContext context) {
+    return AlertDialog(
 
 
-                        );
-                      }
-                    }
+    title: Text('Navn på arter registrert'),
+    content: SingleChildScrollView(
+    child: ListBody(
+    children: <Widget>[
+
+
+    //  title: Text('Navn på art registrert art : \n '+navnArt.split('/').toString()+'\n'),
+    Text('Dato & tid : ' + datoTid.toString()),
+    Text('Gps-kordinater :\n ' +
+    lengdegrad.toString() + ' & ' +
+    breddegrad.toString()),
+    Text('Navn : ' + navn.toString()),
+    Text(' Funnsted : ' + funnsted.toString()),
+    Text('Kommentar : ' + kommentar.toString()),
+
+    ],
     ),
     ),
+    );
+    },
+    );
+    }
+
+    }
+    )
+
+
+    ),
+
                ),
 
     ],

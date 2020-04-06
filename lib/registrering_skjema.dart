@@ -33,7 +33,7 @@ class  RegistreringSkjema extends StatefulWidget{
 class _RegistreringSkjemaState extends State<RegistreringSkjema>{
 
 
-  String name;
+  String name='Skriv inn navn på art';
   String anttall;
   String sted;
   String kommentar;
@@ -219,7 +219,7 @@ class _RegistreringSkjemaState extends State<RegistreringSkjema>{
                                           ),
                                           borderRadius: BorderRadius.circular(20.0)
                                         ),
-                                        hintText: 'Skriv inn navn på art',
+                                        hintText: name,
                                         
                                       ),
                                       textInputAction: TextInputAction.next,
@@ -229,6 +229,7 @@ class _RegistreringSkjemaState extends State<RegistreringSkjema>{
                                       onChanged:(text){
 
                                         this.widget.nyArt.setName(text);
+                                        name=this.widget.nyArt.getName();
 
 
 
@@ -415,7 +416,7 @@ class _RegistreringSkjemaState extends State<RegistreringSkjema>{
 
 
 
-                                      child: Text('Lagre'),
+                                      child: Text('Neste'),
 
                                     ),),
 

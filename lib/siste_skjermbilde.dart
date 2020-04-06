@@ -4,6 +4,7 @@ import 'package:artzi/art.dart';
 import 'package:artzi/main.dart';
 import 'package:artzi/take_picture_screen.dart';
 import 'package:artzi/read_write_file.dart';
+import 'package:artzi/registrering_skjema.dart';
 
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
@@ -123,8 +124,20 @@ class SisteSkjermBilde extends StatelessWidget {
                                         ),
 
                                         actions: <Widget>[
+
                                           FlatButton(
-                                            child: Text('Lagre'),
+
+                                            child: Text('Endre',style: TextStyle(color: Theme.of(context).accentColor),),
+                                            onPressed: (){
+
+
+                                              Navigator.push(context, MaterialPageRoute(
+                                                  builder: (context)=> RegistreringSkjema(
+                                                      this.nyArt,this.camera,this.location)));
+                                            },
+                                          ),
+                                          FlatButton(
+                                            child: Text('dele',style: TextStyle(color: Theme.of(context).accentColor),),
                                             onPressed: (){
                                               ReadWriteFile skrive = new ReadWriteFile();
                                               skrive.skrivNotatOmArt(nyArt);
@@ -132,7 +145,20 @@ class SisteSkjermBilde extends StatelessWidget {
                                               Navigator.push(context, MaterialPageRoute(
                                                     builder: (context)=> MyHomePage(camera,nyArt,location, )));
                                             },
+                                          ),
+                                          FlatButton(
+
+                                            child: Text('Lagre',style: TextStyle(color: Theme.of(context).accentColor),),
+                                            onPressed: (){
+                                              ReadWriteFile skrive = new ReadWriteFile();
+
+                                              skrive.skrivNotatOmArt(nyArt);
+
+                                              Navigator.push(context, MaterialPageRoute(
+                                                  builder: (context)=> MyHomePage(camera,nyArt,location, )));
+                                            },
                                           )
+
                                         ],
 
                                       );
@@ -167,23 +193,7 @@ class SisteSkjermBilde extends StatelessWidget {
 
     );
 
-  /** Future <void> _showNotes(){
-      showDialog(
-        context:context,
-        builder:(BuildContext context){
 
-          return AlertDialog(
-            title: Text('Notar registrert'),
-          );
-
-
-        }
-
-
-      );
-
-
-    }*/
 
   }
 }

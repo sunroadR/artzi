@@ -12,7 +12,11 @@ class Art {
   double breddegrad;
   double lengdegrad;
 
-  Art(this.breddegrad,this.lengdegrad, this.DatoTidspunkt);
+  Art(double bredde, double lengde){
+    this.breddegrad=bredde;
+    this.lengdegrad= lengde;
+    this.DatoTidspunkt='';
+  }
 
   String getName() => name;
    String getAntall() => antall;

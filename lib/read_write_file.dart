@@ -24,9 +24,6 @@ class ReadWriteFile{
   ///Path to the documents directory
   Future<String> get _localPath async {
    final directory = await getExternalStorageDirectory();
-  // Future<Directory> downloadsDirectory = DownloadsPathProvider.downloadsDirectory;
-
-   //print("file://${directory.path}");
     return directory.path;
   }
 
@@ -79,6 +76,8 @@ class ReadWriteFile{
 
 
  }
+
+
 
 
 }
