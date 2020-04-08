@@ -1,11 +1,12 @@
 
 class Art {
 
-  String name='';
-   String antall="";
-  String funnSted='';
-  String kommentar='';
-  String DatoTidspunkt;
+  String name='Skriv inn navn på art';
+   String antall='Skriv inn anttall';
+  String funnSted='Skriv inn på funn sted';
+  String kommentar='Eventuelle andre\n kommentarer';
+  String DatoTidspunkt='';
+  bool registrert=false;
 
 
 
@@ -15,7 +16,6 @@ class Art {
   Art(double bredde, double lengde){
     this.breddegrad=bredde;
     this.lengdegrad= lengde;
-    this.DatoTidspunkt='';
   }
 
   String getName() => name;
@@ -23,11 +23,17 @@ class Art {
   String getfunnSted() => funnSted;
   String getKommentar() => kommentar;
   String getDatoTidspunkt() => DatoTidspunkt;
+
   
   String getLengdegrad() => lengdegrad.toString();
   String getBreddegrad() => breddegrad.toString();
 
+  bool getRegistrert()=> registrert;
 
+
+  void setDatoTidspunk(String tidspkt){
+    this.DatoTidspunkt=tidspkt;
+  }
   void setName(String oppgittNavn){
     this.name=oppgittNavn;
   }
@@ -45,7 +51,9 @@ class Art {
   void setKomentar(String oppgittKpmentar){
     this.kommentar=oppgittKpmentar;
   }
-
+void setRegistrert(){
+    this.registrert=false;
+}
 
 
 }

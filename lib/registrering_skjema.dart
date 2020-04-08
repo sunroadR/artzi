@@ -21,6 +21,8 @@ class  RegistreringSkjema extends StatefulWidget{
   Art nyArt;
   Location location;
 
+  bool registret= false;
+
   RegistreringSkjema(this.nyArt,this.camera,this.location);
 
   @override
@@ -33,7 +35,7 @@ class  RegistreringSkjema extends StatefulWidget{
 class _RegistreringSkjemaState extends State<RegistreringSkjema>{
 
 
-  String name='Skriv inn navn på art';
+  String name;
   String anttall;
   String sted;
   String kommentar;
@@ -219,7 +221,8 @@ class _RegistreringSkjemaState extends State<RegistreringSkjema>{
                                           ),
                                           borderRadius: BorderRadius.circular(20.0)
                                         ),
-                                        hintText: name,
+
+                                        hintText: this.widget.nyArt.getName(),
                                         
                                       ),
                                       textInputAction: TextInputAction.next,
@@ -229,7 +232,7 @@ class _RegistreringSkjemaState extends State<RegistreringSkjema>{
                                       onChanged:(text){
 
                                         this.widget.nyArt.setName(text);
-                                        name=this.widget.nyArt.getName();
+
 
 
 
@@ -280,7 +283,7 @@ class _RegistreringSkjemaState extends State<RegistreringSkjema>{
                                     borderRadius: BorderRadius.circular(20.0)
 
                                 ),
-                                hintText: 'Skriv inn anttall'
+                                hintText: this.widget.nyArt.getAntall(),
                                 ),
                                 textInputAction: TextInputAction.next,
                                 onSubmitted: (_)=>FocusScope.of(context).nextFocus(),
@@ -329,7 +332,7 @@ class _RegistreringSkjemaState extends State<RegistreringSkjema>{
                                             borderRadius: BorderRadius.circular(20.0)
 
                                         ),
-                                        hintText: 'Skriv inn på funn sted'
+                                        hintText: this.widget.nyArt.getfunnSted(),
                                     ),
 
                                     textInputAction: TextInputAction.next,
@@ -367,7 +370,7 @@ class _RegistreringSkjemaState extends State<RegistreringSkjema>{
                                             borderRadius: BorderRadius.circular(20.0)
 
                                         ),
-                                        hintText: 'Eventuelle andre\n kommentarer'
+                                        hintText: this.widget.nyArt.getKommentar(),
                                     ),
 
                                     textInputAction: TextInputAction.next,
@@ -406,9 +409,11 @@ class _RegistreringSkjemaState extends State<RegistreringSkjema>{
                                       ),
                                       onPressed: (){
 
+
                                         Navigator.push(context, MaterialPageRoute(
                                             builder: (context)=> SisteSkjermBilde(  this.widget.camera,  this.widget.nyArt,this.widget.location )));
 
+                                        this.widget.nyArt.setRegistrert();
                                         /** Navigator.push(context, MaterialPageRoute(
                                             builder: (context)=> TakePictureScreen(  this.widget.camera,  this.widget.nyArt, )));*/
                                       },

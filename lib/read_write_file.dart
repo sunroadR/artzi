@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/foundation.dart';
@@ -15,7 +16,10 @@ class ReadWriteFile{
   
   void skrivNotatOmArt(Art nyArt)async{
     String info;
-    info=await''+nyArt.getDatoTidspunkt()+'§'+nyArt.getLengdegrad()+'§'+nyArt.getBreddegrad()+'§'+nyArt.getName()+'§'+nyArt.getfunnSted()+'§'+nyArt.getKommentar()+'\n';
+    info=await' Dato og tidspunkt '+nyArt.getDatoTidspunkt()+'§ \n Gps - kordinator :\n'
+        'Lengde-grad :'+nyArt.getLengdegrad()+'§\nBreddde-grad :'+nyArt.getBreddegrad()+'§\n '
+        'Navn : '+nyArt.getName()+'§ Antall : '+nyArt.getAntall()+'§ \n Funnsted :'+nyArt.getfunnSted()+'§'
+        'Komentar '+nyArt.getKommentar()+'\n';
 
     writeInfo(info);
 
@@ -44,12 +48,39 @@ class ReadWriteFile{
    }
 
   /// Reads from the file
- Future<String> read() async {
+
+  Future<String> read() async {
+    final file = await _localFile;
+    // ignore: unnecessary_statements
+    Stream<List<int>> inputStream = file.openRead();
+    inputStream
+        .transform(utf8.decoder) // Decode bytes to UTF-8
+        .transform(new LineSplitter()) //Convert stream to individual lines
+
+        .listen((String line) {
+        int i=0;
+while( i<5){
+print('${line.split('§').elementAt(i)} ');
+i++;
+      }
+
+
+  },
+        onDone: () {
+          print('File is now closd');
+        },
+        onError: (e) {
+          print(e.toString());
+        });
+  }
+ /**Future<String> read() async {
    String text;
     try {
       final file = await _localFile;
       //Read the file
       text =await file.readAsString();
+
+      print('Her er Jeg , hvor er du ?'+text);
 
 
 
@@ -58,7 +89,7 @@ class ReadWriteFile{
     }
    return text;
 
- }
+ }*/
 
  void dele() async{
 
@@ -77,6 +108,10 @@ class ReadWriteFile{
 
  }
 
+
+Future<File> getFile(){
+    return _localFile;
+}
 
 
 

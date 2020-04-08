@@ -1,5 +1,9 @@
 import 'dart:async';
+//import 'dart:html';
+//import 'package:universal_html/html.dart';
+
 import 'dart:io' as io;
+import 'dart:io';
 
 import 'package:artzi/art.dart';
 import 'package:artzi/registrering_skjema.dart';
@@ -10,6 +14,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:location/location.dart';
 import 'package:date_format/date_format.dart';
+import 'package:path_provider/path_provider.dart';
 
 
 
@@ -174,7 +179,8 @@ class _MyHomePageState extends State<MyHomePage> {
 
     ):new Container();
 
-    return Scaffold(
+    return
+      Scaffold(
         appBar: AppBar(
           backgroundColor: Theme.of(context).primaryColor,
           // Here we take the value from the MyHomePage object that was created by
@@ -242,6 +248,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
                                     this.widget._locationData= await this.widget.location.getLocation();
                                     this.widget.nyArt = new Art(this.widget._locationData.latitude,this.widget._locationData.longitude);
+                                    this.widget.nyArt.setDatoTidspunk(tidsPkt);
 
 
                            Navigator.push(context,
@@ -293,15 +300,17 @@ class _MyHomePageState extends State<MyHomePage> {
                             // Within the `FirstRoute` widget
                     onPressed: () async {
     ReadWriteFile lese = new ReadWriteFile();
-    var navnArt = await lese.read();
 
 
-    print(' er jeg her inne .... ???'+navnArt.length.toString());
 
 
-    if(getTidDato(navnArt.toString())==''){
-      
-      print('Er jeg her ??? NÅ?');
+    File notaterFil =  await lese.getFile();
+
+
+    bool finnes = await notaterFil.exists();
+    if(finnes==false){
+
+      print(' Er jeg inne i if ??');
     showDialog(context: context,
 
 
@@ -316,12 +325,15 @@ class _MyHomePageState extends State<MyHomePage> {
     );
     }
     else{
-    String datoTid = getTidDato(navnArt.toString());
+      print ('Er jeg inne i Else ??');
+      var navnArt = await lese.read();
+  /**  String datoTid = getTidDato(navnArt.toString());
     String lengdegrad = getLegdegrad(navnArt.toString());
     String breddegrad = getBreddegrad(navnArt.toString());
     String navn = getNavn(navnArt.toString());
     String funnsted = getFunnSted(navnArt.toString());
     String kommentar = getKommentar(navnArt.toString());
+      */
 
     showDialog(context: context,
 
@@ -336,14 +348,14 @@ class _MyHomePageState extends State<MyHomePage> {
     children: <Widget>[
 
 
-    //  title: Text('Navn på art registrert art : \n '+navnArt.split('/').toString()+'\n'),
+   /** //  title: Text('Navn på art registrert art : \n '+navnArt.split('/').toString()+'\n'),
     Text('Dato & tid : ' + datoTid.toString()),
     Text('Gps-kordinater :\n ' +
     lengdegrad.toString() + ' & ' +
     breddegrad.toString()),
     Text('Navn : ' + navn.toString()),
     Text(' Funnsted : ' + funnsted.toString()),
-    Text('Kommentar : ' + kommentar.toString()),
+    Text('Kommentar : ' + kommentar.toString()),*/
 
     ],
     ),
@@ -369,8 +381,13 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
+
+
   /// Metoder som  henter ut registret info om  registrerte arter
+  ///
+  /**
 String getTidDato(String info){
+
     return info.split("§").elementAt(0);
 }
 
@@ -393,7 +410,7 @@ String getLegdegrad(String info){
  String getKommentar(String info){
    return info.split("§").elementAt(5);
 
- }
+ }*/
 }
 
 
