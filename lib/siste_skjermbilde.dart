@@ -127,7 +127,8 @@ class SisteSkjermBilde extends StatelessWidget {
 
                                           FlatButton(
 
-                                            child: Text('Endre',style: TextStyle(color: Theme.of(context).accentColor),),
+                                            child: Text('Endre',style: TextStyle(color: Theme.of(context).accentColor,
+                                                fontSize: 18,fontWeight:FontWeight.bold ),),
                                             onPressed: (){
 
 
@@ -136,19 +137,11 @@ class SisteSkjermBilde extends StatelessWidget {
                                                       this.nyArt,this.camera,this.location)));
                                             },
                                           ),
-                                          FlatButton(
-                                            child: Text('dele',style: TextStyle(color: Theme.of(context).accentColor),),
-                                            onPressed: (){
-                                              ReadWriteFile skrive = new ReadWriteFile();
-                                              skrive.skrivNotatOmArt(nyArt);
-                                              skrive.dele();
-                                              Navigator.push(context, MaterialPageRoute(
-                                                    builder: (context)=> MyHomePage(camera,nyArt,location, )));
-                                            },
-                                          ),
+
                                           FlatButton(
 
-                                            child: Text('Lagre',style: TextStyle(color: Theme.of(context).accentColor),),
+                                            child: Text('Lagre',style: TextStyle(color: Theme.of(context).accentColor,
+                                                fontSize: 18,fontWeight:FontWeight.bold ),),
                                             onPressed: (){
                                               ReadWriteFile skrive = new ReadWriteFile();
 

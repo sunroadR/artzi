@@ -408,14 +408,24 @@ class _RegistreringSkjemaState extends State<RegistreringSkjema>{
                                           borderRadius: new BorderRadius.circular(30.0)
                                       ),
                                       onPressed: (){
+                                        if(this.widget.nyArt.getName()=='Skriv inn navn på art'){
+                                          this.widget.nyArt.setName('');
+                                        }
+                                        if(this.widget.nyArt.getAntall()=='Skriv inn anttall'){
+                                          this.widget.nyArt.setAntall('');
+                                        }
 
+                                        if(this.widget.nyArt.getfunnSted()=='Skriv inn på funn sted'){
+                                          this.widget.nyArt.setFunnSted('');
+                                        }
+                                        if(this.widget.nyArt.getKommentar()=='Eventuelle andre\n kommentarer'){
+                                          this.widget.nyArt.setKomentar('');
+                                        }
 
                                         Navigator.push(context, MaterialPageRoute(
                                             builder: (context)=> SisteSkjermBilde(  this.widget.camera,  this.widget.nyArt,this.widget.location )));
 
                                         this.widget.nyArt.setRegistrert();
-                                        /** Navigator.push(context, MaterialPageRoute(
-                                            builder: (context)=> TakePictureScreen(  this.widget.camera,  this.widget.nyArt, )));*/
                                       },
                                       color: Colors.lightGreen[600],
 

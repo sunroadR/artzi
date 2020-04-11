@@ -115,9 +115,9 @@ class _TakePictureScreenState extends State<TakePictureScreen> {
             // Construct the path where the image should be saved using the
             // pattern package.
             final path = join(
-              // Store the picture in the temp directory.
-              // Find the temp directory using the `path_provider` plugin.
-              (await getTemporaryDirectory()).path,
+              // Store the picture in the  directory.
+
+                (await getExternalStorageDirectory()).path,
               '${DateTime.now()}.png',
             );
 

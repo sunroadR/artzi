@@ -1,6 +1,9 @@
 import 'dart:async';
 //import 'dart:html';
 //import 'package:universal_html/html.dart';
+import 'dart:async';
+import 'dart:convert';
+import 'dart:io';
 
 import 'dart:io' as io;
 import 'dart:io';
@@ -156,46 +159,64 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
 
+  String tid;
+  String gps;
+  String navn;
+  String antall;
+  String funnsted;
+  String kommentar;
+
 
   bool _load = false;
   Timer _timer;
 
-  void setLoad(){
-    _load=false;
+  void setLoad() {
+    _load = false;
   }
 
   @override
   Widget build(BuildContext context) {
-    print(' Hva er lengde graden ?? '+this.widget.nyArt.breddegrad.toString() );
 
-    Widget loadingIndicator = _load? new Container(
-      color: Theme.of(context).backgroundColor,
-      width: MediaQuery.of(context).size.width,
-      height: MediaQuery.of(context).size.height,
+    Widget loadingIndicator = _load ? new Container(
+      color: Theme
+          .of(context)
+          .backgroundColor,
+      width: MediaQuery
+          .of(context)
+          .size
+          .width,
+      height: MediaQuery
+          .of(context)
+          .size
+          .height,
       child: new Center(
-        child: new CircularProgressIndicator(
-        )
+          child: new CircularProgressIndicator(
+          )
       ),
 
-    ):new Container();
+    ) : new Container();
 
     return
       Scaffold(
         appBar: AppBar(
-          backgroundColor: Theme.of(context).primaryColor,
+          backgroundColor: Theme
+              .of(context)
+              .primaryColor,
           // Here we take the value from the MyHomePage object that was created by
           // the App.build method, and use it to set our appbar title.
           title: RichText(
-            text:  TextSpan(
+            text: TextSpan(
 
-                text: 'Artzi',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 28.0),
+                text: 'Artzi',
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 28.0),
                 children: <TextSpan>[
-                  TextSpan(text:', for å notere arter på tur', style: TextStyle( fontStyle: FontStyle.italic , fontSize: 18.0),),
+                  TextSpan(text: ', for å notere arter på tur',
+                    style: TextStyle(
+                        fontStyle: FontStyle.italic, fontSize: 18.0),),
                 ]
             ),
 
           ),
-
 
 
         ),
@@ -206,211 +227,220 @@ class _MyHomePageState extends State<MyHomePage> {
           children: <Widget>[
 
 
-                  //Container(
+            //Container(
 
 
-                     Row(
-                children: <Widget>[
+            Row(
+              children: <Widget>[
 
 
+                Container(
+                  height: MediaQuery
+                      .of(context)
+                      .size
+                      .height / 2,
+                  color: Theme
+                      .of(context)
+                      .backgroundColor,
 
+                  width: MediaQuery
+                      .of(context)
+                      .size
+                      .width,
+                  //     child:Padding(
+                  //      padding: EdgeInsets.only(right:25, bottom: 30),
+                  child: Align(
+                      alignment: Alignment.center,
 
-                          Container(
-                            height: MediaQuery.of(context).size.height/2,
-                            color: Theme.of(context).backgroundColor,
+                      child: _load ? Center(
+                        child: CircularProgressIndicator(),
+                      ) : new RaisedButton(
 
-                              width: MediaQuery.of(context).size.width,
-                              //     child:Padding(
-                              //      padding: EdgeInsets.only(right:25, bottom: 30),
-                              child: Align(
-                                alignment: Alignment.center,
-
-                              child:  _load ? Center(
-                                         child: CircularProgressIndicator(),
-                              ): new RaisedButton(
-
-                                  shape: new RoundedRectangleBorder(
-                                    borderRadius: new BorderRadius.circular(30.0),
-                                  ),
-                                  color: Colors.lightGreen[300],
-                                  child: Text ('Starte NY registrering',
-                                      style: TextStyle(fontSize: 20)),
+                        shape: new RoundedRectangleBorder(
+                          borderRadius: new BorderRadius.circular(30.0),
+                        ),
+                        color: Colors.lightGreen[300],
+                        child: Text('Starte ny registrering',
+                            style: TextStyle(fontSize: 20)),
 
 // Within the `FirstRoute` widget
-                                  onPressed: () async {
-                                    setState(() {
-                                      _load =true;
-                                    });
+                        onPressed: () async {
+                          setState(() {
+                            _load = true;
+                          });
 
-                                    String tidsPkt= formatDate(DateTime.now(), [dd,'.',mm,'.',yyyy, '  ',HH,':',nn]);
-
-
-
-                                    this.widget._locationData= await this.widget.location.getLocation();
-                                    this.widget.nyArt = new Art(this.widget._locationData.latitude,this.widget._locationData.longitude);
-                                    this.widget.nyArt.setDatoTidspunk(tidsPkt);
+                          String tidsPkt = formatDate(DateTime.now(),
+                              [dd, '.', mm, '.', yyyy, '  ', HH, ':', nn]);
 
 
-                           Navigator.push(context,
-                                    MaterialPageRoute(builder: (context) => RegistreringSkjema(
-                                        this.widget.nyArt,this.widget.camera,this.widget.location)));
+                          this.widget._locationData =
+                          await this.widget.location.getLocation();
+                          this.widget.nyArt = new Art(
+                              this.widget._locationData.latitude,
+                              this.widget._locationData.longitude);
+                          this.widget.nyArt.setDatoTidspunk(tidsPkt);
+
+
+                          Navigator.push(context,
+                              MaterialPageRoute(builder: (context) =>
+                                  RegistreringSkjema(
+                                      this.widget.nyArt, this.widget.camera,
+                                      this.widget.location)));
+
+
+                          setState(() {
+                            _timer = new Timer(const Duration(
+                                microseconds: 400), () {
+                              _load = false;
+                            });
+                          });
+                        },
+
+                      )
+                  ),
+                  // ),
+                ),
+
+
+              ],
+
+
+            ),
+
+
+            Container(
+              height: MediaQuery
+                  .of(context)
+                  .size
+                  .height / 2,
+              color: Theme
+                  .of(context)
+                  .backgroundColor,
+
+
+              child: Align(
+                  alignment: Alignment.center,
+
+
+                  child: RaisedButton(
+
+                      shape: new RoundedRectangleBorder(
+                        borderRadius: new BorderRadius.circular(30.0),
+                      ),
+                      color: Colors.lightGreen[300],
+                      child: Text('Se tidligere notater',
+                          style: TextStyle(fontSize: 20)),
+                      // Within the `FirstRoute` widget
+                      onPressed: () async {
+                        ReadWriteFile lese = new ReadWriteFile();
+
+
+                        File notaterFil = await lese.getFile();
+
+
+                        bool finnes = await notaterFil.exists();
+                        if (finnes == false) {
+                          showDialog(context: context,
+
+
+                              builder: (BuildContext context) {
+                                return AlertDialog(
+
+
+                                  title: Text('Ingen notater registrert'),
+
+                                );
+                              }
+                          );
+                        }
+                        else {
 
 
 
-                             setState(() {
-                                      _timer = new Timer(const Duration(
-                                          microseconds: 400), () {
-                                        _load = false;
-                                      });
-                                    });
+                          String  notat = await lese.readAsString();
+                         showDialog(context: context,
 
+
+
+                          builder: (BuildContext context) {
+
+
+
+
+                              return AlertDialog(
+
+
+                                title: Text('Tidligere notater',style: TextStyle(color: Theme.of(context).accentColor,
+                                fontSize: 18),),
+                                content: SingleChildScrollView(
+
+                                  child: ListBody(
+                                    children: <Widget>[
+
+                                    Text(''+notat.toString()),
+
+                                    ],
+                                  ),
+                                ),
+                                actions: <Widget>[
+                                FlatButton(
+                                  child: Text('Dele',style: TextStyle(color: Theme.of(context).accentColor,
+                                  fontSize: 18,fontWeight:FontWeight.bold ),),
+                                  onPressed: (){
+                                    lese.dele();
+                                    Navigator.push(context, MaterialPageRoute(
+                                        builder: (context)=> MyHomePage(this.widget.camera,this.widget.nyArt,this.widget.location, )));
+
+                                    lese.slettFile();
                                   },
 
-                              )
-                              ),
-                              // ),
-                            ),
+                                ),
+                                  FlatButton(
+                                    child: Text('OK',style: TextStyle(color: Theme.of(context).accentColor,
+                                        fontSize: 18,fontWeight:FontWeight.bold ),),
+                                    onPressed: (){
+                                      Navigator.push(context, MaterialPageRoute(
+                                          builder: (context)=> MyHomePage(this.widget.camera,this.widget.nyArt,this.widget.location, )));
+                                    },
+
+                                  ),
+                                ],
 
 
-
-
-      ],
-
+                              );
+                            },
+                          );
+                        }
+                      }
+                  )
 
 
               ),
 
+            ),
 
-               Container(
-                 height: MediaQuery.of(context).size.height/2,
-                 color: Theme.of(context).backgroundColor,
-
-
-                child: Align(
-                  alignment: Alignment.center,
-
-                  child: RaisedButton(
-
-                    shape: new RoundedRectangleBorder(
-                      borderRadius: new BorderRadius.circular(30.0),
-                    ),
-                    color: Colors.lightGreen[300],
-                    child: Text ('Se tidligere registrete arter',
-                        style: TextStyle(fontSize: 20)),
-                            // Within the `FirstRoute` widget
-                    onPressed: () async {
-    ReadWriteFile lese = new ReadWriteFile();
-
-
-
-
-    File notaterFil =  await lese.getFile();
-
-
-    bool finnes = await notaterFil.exists();
-    if(finnes==false){
-
-      print(' Er jeg inne i if ??');
-    showDialog(context: context,
-
-
-    builder: (BuildContext context) {
-    return AlertDialog(
-
-
-    title: Text('Ingen notater registrert'),
-   
-    );
-    }
-    );
-    }
-    else{
-      print ('Er jeg inne i Else ??');
-      var navnArt = await lese.read();
-  /**  String datoTid = getTidDato(navnArt.toString());
-    String lengdegrad = getLegdegrad(navnArt.toString());
-    String breddegrad = getBreddegrad(navnArt.toString());
-    String navn = getNavn(navnArt.toString());
-    String funnsted = getFunnSted(navnArt.toString());
-    String kommentar = getKommentar(navnArt.toString());
-      */
-
-    showDialog(context: context,
-
-
-    builder: (BuildContext context) {
-    return AlertDialog(
-
-
-    title: Text('Navn på arter registrert'),
-    content: SingleChildScrollView(
-    child: ListBody(
-    children: <Widget>[
-
-
-   /** //  title: Text('Navn på art registrert art : \n '+navnArt.split('/').toString()+'\n'),
-    Text('Dato & tid : ' + datoTid.toString()),
-    Text('Gps-kordinater :\n ' +
-    lengdegrad.toString() + ' & ' +
-    breddegrad.toString()),
-    Text('Navn : ' + navn.toString()),
-    Text(' Funnsted : ' + funnsted.toString()),
-    Text('Kommentar : ' + kommentar.toString()),*/
-
-    ],
-    ),
-    ),
-    );
-    },
-    );
-    }
-
-    }
-    )
-
-
-    ),
-
-               ),
-
-    ],
+          ],
         ),
 
 
-      // This trailing comma makes auto-formatting nicer for build methods.
-    );
+        // This trailing comma makes auto-formatting nicer for build methods.
+      );
   }
 
 
 
-  /// Metoder som  henter ut registret info om  registrerte arter
-  ///
-  /**
-String getTidDato(String info){
 
-    return info.split("§").elementAt(0);
-}
 
-String getLegdegrad(String info){
-    return info.split("§").elementAt(1);
+String getTid()=> tid;
+
+  void setTid(String s) {
+    this.tid =tid;
   }
 
-  String getBreddegrad(String info){
-    return info.split("§").elementAt(2);
-  }
 
-  String getNavn(String info){
-    return info.split("§").elementAt(3);
-  }
 
-  String getFunnSted(String info){
-    return info.split("§").elementAt(4);
-  }
 
- String getKommentar(String info){
-   return info.split("§").elementAt(5);
 
- }*/
 }
 
 
