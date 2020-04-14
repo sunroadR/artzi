@@ -383,15 +383,73 @@ class _MyHomePageState extends State<MyHomePage> {
                                   ),
                                 ),
                                 actions: <Widget>[
+
+                                  FlatButton(
+                                    child:Text('slette',style: TextStyle(color: Theme.of(context).accentColor,
+                                        fontSize: 18,fontWeight:FontWeight.bold ),),
+                                    onPressed: (){
+
+
+                                      showDialog(context: context,
+
+
+                                          builder: (BuildContext context) {
+                                            return AlertDialog(
+
+                                              content: SingleChildScrollView(
+
+                                                child: ListBody(
+                                                  children: <Widget>[
+
+                                                    Text('Vil du slette notatene ?'),
+
+
+
+                                                  ],
+                                                ),
+                                              ),
+
+                                              actions: <Widget>[
+                                                FlatButton(
+                                                  child:Text('Ja',style: TextStyle(color: Theme.of(context).accentColor,
+                                                      fontSize: 18,fontWeight:FontWeight.bold ),),
+                                                  onPressed: (){
+                                                    lese.slettFile();
+                                                    Navigator.push(context, MaterialPageRoute(
+                                                        builder: (context)=> MyHomePage(this.widget.camera,this.widget.nyArt,this.widget.location, )));
+
+                                                  },
+                                                ),
+                                                FlatButton(
+                                                  child:Text('Nei',style: TextStyle(color: Theme.of(context).accentColor,
+                                                      fontSize: 18,fontWeight:FontWeight.bold ),),
+                                                  onPressed: (){
+                                                    Navigator.push(context, MaterialPageRoute(
+                                                        builder: (context)=> MyHomePage(this.widget.camera,this.widget.nyArt,this.widget.location, )));
+
+                                                  },
+                                                )
+                                              ],
+
+                                            );
+                                          }
+                                      );
+
+
+
+
+                                    },
+                                  ),
                                 FlatButton(
                                   child: Text('Dele',style: TextStyle(color: Theme.of(context).accentColor,
                                   fontSize: 18,fontWeight:FontWeight.bold ),),
                                   onPressed: (){
                                     lese.dele();
+
                                     Navigator.push(context, MaterialPageRoute(
                                         builder: (context)=> MyHomePage(this.widget.camera,this.widget.nyArt,this.widget.location, )));
 
-                                    lese.slettFile();
+
                                   },
 
                                 ),

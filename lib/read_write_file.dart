@@ -50,15 +50,18 @@ class ReadWriteFile{
 
  void dele() async{
 
-    Directory dir = await getApplicationDocumentsDirectory();
 
-    File notaterFil = new File('${dir.path}/art_registret.txt');
+
+
+    File notaterFil = await _localFile;
 
     if(!await notaterFil.exists()){
       await notaterFil.create(recursive: true);
       String info = await readAsString();
+      print(''+info.toString());
       notaterFil.writeAsStringSync(info);
     }
+
 
     ShareExtend.share(notaterFil.path, "file");
 
