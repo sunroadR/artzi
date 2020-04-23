@@ -7,7 +7,6 @@ import 'package:camera/camera.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:location/location.dart';
-import 'package:artzi/main.dart';
 
 
 class  RegistreringSkjema extends StatefulWidget{
@@ -73,7 +72,7 @@ class _RegistreringSkjemaState extends State<RegistreringSkjema>{
         title: RichText(
           text:  TextSpan(
 
-              text: 'Artzi',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 28.0),
+              text: 'Artzi, ',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 28.0),
               children: <TextSpan>[
                 TextSpan(text:'for å notere arter tur', style: TextStyle( fontStyle: FontStyle.italic , fontSize: 18.0),),
               ]

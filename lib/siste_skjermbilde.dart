@@ -66,7 +66,7 @@ class SisteSkjermBilde extends StatelessWidget {
                       ),
                       Expanded(
                           flex: 2,
-                          child: Text(' Vil du ta bilde \n av '+this.nyArt.getName(),style: TextStyle(
+                          child: Text(' Vil du ta bilde ?',style: TextStyle(
                             fontStyle: FontStyle.italic,fontSize: 18,fontWeight: FontWeight.bold,
                           ),
                           )
@@ -81,7 +81,7 @@ class SisteSkjermBilde extends StatelessWidget {
                           color: Colors.black),
                           onPressed: (){
                             Navigator.push(context, MaterialPageRoute(
-                                builder: (context)=> TakePictureScreen(  this.camera,  this.nyArt, )));
+                                builder: (context)=> TakePictureScreen(this.camera,  this.nyArt, this.location)));
                           },
                         ),
                       )
@@ -131,10 +131,9 @@ class SisteSkjermBilde extends StatelessWidget {
                                                 fontSize: 18,fontWeight:FontWeight.bold ),),
                                             onPressed: (){
 
-
                                               Navigator.push(context, MaterialPageRoute(
-                                                  builder: (context)=> RegistreringSkjema(
-                                                      this.nyArt,this.camera,this.location)));
+                                                 builder: (context)=> RegistreringSkjema(
+                                                     this.nyArt,this.camera,this.location)));
                                             },
                                           ),
 

@@ -1,4 +1,6 @@
-
+/**
+ * Objekt av klasseen lagrer infoen som blir notert om arten
+ */
 class Art {
 
   String name='Skriv inn navn på art';

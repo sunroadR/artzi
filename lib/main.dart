@@ -1,12 +1,7 @@
 import 'dart:async';
-//import 'dart:html';
-//import 'package:universal_html/html.dart';
-import 'dart:async';
-import 'dart:convert';
+
 import 'dart:io';
 
-import 'dart:io' as io;
-import 'dart:io';
 
 import 'package:artzi/art.dart';
 import 'package:artzi/registrering_skjema.dart';
@@ -17,7 +12,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:location/location.dart';
 import 'package:date_format/date_format.dart';
-import 'package:path_provider/path_provider.dart';
 
 
 
@@ -25,7 +19,7 @@ Future<void> main() async{
 
   Art nyArt;
 
-  // sjekker at plugin service er  initialisert slik at app foår tak i kamera før den kjører
+  // sjekker at plugin service er  initialisert, slik at app får tak i kamera før den kjører
   WidgetsFlutterBinding.ensureInitialized();
 
   // Få tak i til tilgjengelige camera på device
@@ -39,6 +33,7 @@ Future<void> main() async{
   bool _serviceEnabled;
   PermissionStatus _permissionGranted;
   LocationData _locationData;
+
 
   _serviceEnabled = await location.serviceEnabled();
   if(!_serviceEnabled){
@@ -59,6 +54,7 @@ Future<void> main() async{
 
 
   _locationData = await location.getLocation();
+  //oppretter art-objekt og legger inn gps
   nyArt = new Art(_locationData.latitude,_locationData.longitude);
 
 
@@ -117,7 +113,7 @@ class MyApp extends StatelessWidget {
 
 
         ),
-        title: 'Flutter Demo',
+        title: 'Artzi',
 
         home: MyHomePage(
 

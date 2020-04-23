@@ -1,13 +1,6 @@
 import 'dart:async';
-import 'dart:convert';
 import 'dart:io';
-
-import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:downloads_path_provider/downloads_path_provider.dart';
-import 'package:esys_flutter_share/esys_flutter_share.dart';
-
 
 import 'package:artzi/art.dart';
 import 'package:share_extend/share_extend.dart';
