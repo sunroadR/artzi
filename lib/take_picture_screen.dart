@@ -180,11 +180,21 @@ class DisplayPictureScreen extends StatelessWidget {
 
 
                  Container(
+                   
+                   color: Theme.of(context).backgroundColor,
                       height: MediaQuery.of(context).size.height,
                       width: MediaQuery.of(context).size.width,
 
+           child: Container(
+               padding: EdgeInsets.all(8.0),
+                        child: FittedBox(
 
-                        child:  Image.file(File(imagePath),),
+                          child: Image.file(File(imagePath),),
+
+
+
+                        )
+),
     ),
 
 
